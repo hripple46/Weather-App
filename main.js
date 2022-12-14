@@ -8,9 +8,11 @@ const weatherLabels = [
   "Humidity",
 ];
 
-function getWeather() {
+function getWeather(userInput) {
   fetch(
-    "https://api.openweathermap.org/data/2.5/weather?q=Minneapolis&appid=17312825d27592a56aa8d8b5b3280657&units=imperial",
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+      userInput +
+      "&appid=17312825d27592a56aa8d8b5b3280657&units=imperial",
     { mode: "cors" }
   )
     .then(function (response) {
@@ -20,18 +22,35 @@ function getWeather() {
     .then(function (currentWeather) {
       console.log(currentWeather);
       let weatherResult = currentWeather.main;
+      let weatherName = currentWeather.name;
       //displayWeather(weatherResult);
-      displayWeather(weatherResult);
+      displayWeather(weatherResult, weatherName);
     });
 }
-getWeather();
 
-function displayWeather(x) {
+let userSubmit = document.querySelector("#button");
+let userInput = document.querySelector("#userInput");
+
+userSubmit.addEventListener("click", () => {
+  let userInputValue = userInput.value;
+  getWeather(userInputValue);
+});
+
+function displayWeather(x, y) {
   let index = 0;
+  document.querySelector("#result").innerText = "";
+  let locationName = document.createElement("h1");
+  locationName.textContent = y;
+  document.querySelector("#result").appendChild(locationName);
   for (let i in x) {
     let newDiv = document.createElement("div");
-    newDiv.innerText = weatherLabels[index] + ": " + `${x[i]}` + "\u2109";
-    document.body.appendChild(newDiv);
+    console.log(`${[i]}`);
+    if (`${[i]}`.includes("temp") || `${[i]}`.includes("feel")) {
+      newDiv.innerText = weatherLabels[index] + ": " + `${x[i]}` + "\u2109";
+    } else {
+      newDiv.innerText = weatherLabels[index] + ": " + `${x[i]}`;
+    }
+    document.querySelector("#result").appendChild(newDiv);
     index += 1;
   }
 }
