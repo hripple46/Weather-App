@@ -1,5 +1,12 @@
 //let exampleCity = "Minneapolis";
-let weatherResult = "";
+const weatherLabels = [
+  "Current Temperature",
+  "Feels Like",
+  "Low",
+  "High",
+  "Air Pressure",
+  "Humidity",
+];
 
 function getWeather() {
   fetch(
@@ -12,7 +19,7 @@ function getWeather() {
     })
     .then(function (currentWeather) {
       console.log(currentWeather);
-      weatherResult = currentWeather.main;
+      let weatherResult = currentWeather.main;
       //displayWeather(weatherResult);
       displayWeather(weatherResult);
     });
@@ -20,9 +27,11 @@ function getWeather() {
 getWeather();
 
 function displayWeather(x) {
+  let index = 0;
   for (let i in x) {
     let newDiv = document.createElement("div");
-    newDiv.innerText = `${[i] + ": " + x[i]}`;
+    newDiv.innerText = weatherLabels[index] + ": " + `${x[i]}` + "\u2109";
     document.body.appendChild(newDiv);
+    index += 1;
   }
 }
