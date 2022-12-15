@@ -1,0 +1,23 @@
+body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 2em 1fr 2fr 1fr;
+}
+#result {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  text-align: center;
+}
+#forecastOverview {
+  grid-row: 3 / 4;
+  grid-column: 1/4;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 2em;
+}
+#forecastDay {
+  display: inline-block;
+  padding: 2em;
+  text-align: center;
+}

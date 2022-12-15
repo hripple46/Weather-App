@@ -100,6 +100,8 @@ function displayWeather(x, y) {
 function displayDailyForecast(x) {
   let currentDay = "";
   for (let i in x) {
+    let createDivForDay = document.createElement("div");
+    createDivForDay.setAttribute("id", "forecastDay");
     let weatherDetails = "";
 
     console.log(`${x[i]}`);
@@ -121,12 +123,13 @@ function displayDailyForecast(x) {
           let date = document.createElement("h1");
           date.innerText = currentDay;
           console.log(x[i]);
-          document.querySelector("#forecastOverview").appendChild(date);
-          console.log(weatherDetails);
-
+          document
+            .querySelector("#forecastOverview")
+            .appendChild(createDivForDay);
+          createDivForDay.appendChild(date);
           let children = document.createElement("p");
           children.innerText = weatherDetails;
-          document.querySelector("#forecastOverview").appendChild(children);
+          createDivForDay.appendChild(children);
         }
       }
     }
