@@ -27,13 +27,36 @@ function getWeather(userInput) {
       displayWeather(weatherResult, weatherName);
     });
 }
+function getWeatherByZip(userInput) {
+  fetch(
+    "https://api.openweathermap.org/data/2.5/weather?zip=" +
+      userInput +
+      "&appid=17312825d27592a56aa8d8b5b3280657&units=imperial",
+    { mode: "cors" }
+  )
+    .then(function (response) {
+      let currentWeather = response.json();
+      return currentWeather;
+    })
+    .then(function (currentWeather) {
+      console.log(currentWeather);
+      let weatherResult = currentWeather.main;
+      let weatherName = currentWeather.name;
+      //displayWeather(weatherResult);
+      displayWeather(weatherResult, weatherName);
+    });
+}
 
 let userSubmit = document.querySelector("#button");
 let userInput = document.querySelector("#userInput");
 
 userSubmit.addEventListener("click", () => {
   let userInputValue = userInput.value;
-  getWeather(userInputValue);
+  if (/\d/.test(userInputValue) == true) {
+    getWeatherByZip(userInputValue);
+  } else {
+    getWeather(userInputValue);
+  }
 });
 
 function displayWeather(x, y) {
