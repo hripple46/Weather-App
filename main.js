@@ -83,32 +83,39 @@ userSubmit.addEventListener("click", () => {
 });
 
 function displayWeather(x, y, z) {
-  let index = 0;
   document.querySelector("#result").innerText = "";
   document.querySelector("#forecastOverview").innerText = "";
+  document.querySelector("#summaryResult").innerText = "";
   let locationName = document.createElement("h1");
   locationName.textContent = y;
-  document.querySelector("#result").appendChild(locationName);
+  document.querySelector("#summaryResult").appendChild(locationName);
   for (let i in z) {
     console.log(z[i].main);
     if (z[i].main) {
       let newDivState = document.createElement("div");
       newDivState.setAttribute("id", "currentState");
-      newDivState.innerText = "Current Condition: " + `${z[i].main}`;
-      document.querySelector("#result").appendChild(newDivState);
+      newDivState.innerText = `${z[i].main}`;
+      document.querySelector("#summaryResult").appendChild(newDivState);
     } else {
       continue;
     }
   }
   for (let i in x) {
     let newDiv = document.createElement("div");
-    if (`${[i]}`.includes("temp") || `${[i]}`.includes("feel")) {
-      newDiv.innerText = weatherLabels[index] + ": " + `${x[i]}` + "\u2109";
+    if (`${[i]}` == "temp") {
+      newDiv.innerText = `${x[i]}` + "\u2109";
+      document.querySelector("#summaryResult").appendChild(newDiv);
+      continue;
+    } else if (`${[i]}`.includes("temp") || `${[i]}`.includes("feel")) {
+      let weatherStr = `${[i]}` + ": " + `${x[i]}` + "\u2109";
+      let newWeatherStr = weatherStr.replace("_", " ");
+      newDiv.innerText = newWeatherStr;
     } else {
-      newDiv.innerText = weatherLabels[index] + ": " + `${x[i]}`;
+      let weatherStr = `${[i]}` + ": " + `${x[i]}`;
+      let newWeatherStr = weatherStr.replace("_", " ");
+      newDiv.innerText = newWeatherStr;
     }
     document.querySelector("#result").appendChild(newDiv);
-    index += 1;
   }
 }
 function displayDailyForecast(x) {

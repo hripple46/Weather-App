@@ -5,15 +5,42 @@ html {
 body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 2em 1fr 2fr 1fr;
+  grid-template-rows: 2em 1fr 1fr 2fr 1fr;
+}
+#userFields {
+  height: 100%;
+}
+#userFields input {
+  height: 100%;
+  padding: 0;
+  border-width: 1px;
+}
+#userFields button {
+  height: 100%;
+  padding: 2px;
+  border-width: 1px;
+}
+#summaryResult {
+  grid-row: 2/3;
+  grid-column: 2/3;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+#summaryResult h1 {
+  grid-column: 1/3;
+}
+#summaryResult div {
+  font-size: 1.5em;
 }
 #result {
-  grid-row: 2 / 3;
+  grid-row: 3 / 4;
   grid-column: 2 / 3;
   text-align: center;
 }
 #forecastOverview {
-  grid-row: 3 / 4;
+  grid-row: 4 / 5;
   grid-column: 1/4;
   display: flex;
   flex-flow: row wrap;
@@ -30,19 +57,24 @@ body {
   body {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 2em 1fr 3fr 1fr;
+    grid-template-rows: 2em 1fr 1fr 6fr 1fr;
   }
 
   #forecastOverview {
-    grid-row: 3 / 4;
+    grid-row: 4 / 5;
     grid-column: 1/2;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     margin-top: 2em;
   }
+  #summaryResult {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    text-align: center;
+  }
   #result {
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
     grid-column: 1 / 2;
     text-align: center;
   }
