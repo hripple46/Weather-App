@@ -20,10 +20,13 @@ function getWeather(userInput) {
       return currentWeather;
     })
     .then(function (currentWeather) {
+      console.log(currentWeather);
+
       let weatherResult = currentWeather.main;
       let weatherName = currentWeather.name;
+      let weatherCondition = currentWeather.weather;
       //displayWeather(weatherResult);
-      displayWeather(weatherResult, weatherName);
+      displayWeather(weatherResult, weatherName, weatherCondition);
     });
 }
 //returns current weather if user inputs a zipcode
@@ -39,6 +42,7 @@ function getWeatherByZip(userInput) {
       return currentWeather;
     })
     .then(function (currentWeather) {
+      console.log(currentWeather);
       let weatherResult = currentWeather.main;
       let weatherName = currentWeather.name;
       //displayWeather(weatherResult);
@@ -62,8 +66,7 @@ function getForecast(userInput) {
       displayDailyForecast(weatherResult);
 
       return weatherResult;
-    })
-    .then(function (weatherResult) {});
+    });
 }
 
 let userSubmit = document.querySelector("#button");
@@ -79,13 +82,24 @@ userSubmit.addEventListener("click", () => {
   }
 });
 
-function displayWeather(x, y) {
+function displayWeather(x, y, z) {
   let index = 0;
   document.querySelector("#result").innerText = "";
   document.querySelector("#forecastOverview").innerText = "";
   let locationName = document.createElement("h1");
   locationName.textContent = y;
   document.querySelector("#result").appendChild(locationName);
+  for (let i in z) {
+    console.log(z[i].main);
+    if (z[i].main) {
+      let newDivState = document.createElement("div");
+      newDivState.setAttribute("id", "currentState");
+      newDivState.innerText = "Current Condition: " + `${z[i].main}`;
+      document.querySelector("#result").appendChild(newDivState);
+    } else {
+      continue;
+    }
+  }
   for (let i in x) {
     let newDiv = document.createElement("div");
     if (`${[i]}`.includes("temp") || `${[i]}`.includes("feel")) {
@@ -104,7 +118,6 @@ function displayDailyForecast(x) {
     createDivForDay.setAttribute("id", "forecastDay");
     let weatherDetails = "";
 
-    console.log(`${x[i]}`);
     for (let j in x[i]) {
       if (`${j}` == "main") {
         for (let z in x[i][j]) {
@@ -122,7 +135,6 @@ function displayDailyForecast(x) {
           currentDay = `${splitDate[0]}`;
           let date = document.createElement("h1");
           date.innerText = currentDay;
-          console.log(x[i]);
           document
             .querySelector("#forecastOverview")
             .appendChild(createDivForDay);
